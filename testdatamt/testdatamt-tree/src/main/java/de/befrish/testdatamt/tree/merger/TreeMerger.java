@@ -5,16 +5,19 @@
 
 package de.befrish.testdatamt.tree.merger;
 
+import de.befrish.testdatamt.tree.DefaultTreeNode;
 import de.befrish.testdatamt.tree.TreeNode;
+import io.vavr.Tuple2;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
  * @author Benno Müller
  */
-public class TreeMerger {
+public final class TreeMerger {
 
     /**
      * Die Knoten von Baum 1 werden ergänzt durch Knoten von Baum 2, falls die Wurzel gleich ist (gleicher Name des
@@ -24,20 +27,26 @@ public class TreeMerger {
      * @param tree2 Baum 2 (kann ebenfalls geändert werden, wenn Knoten in Baum 1 umgehangen werden)
      * @return Änderungen bei Merge?
      */
-    public boolean merge(final TreeNode tree1, final TreeNode tree2) {
-        if (Objects.equals(tree1, tree2)) {
-            new ArrayList<>(tree2.getChildren())
-                    .forEach(child2 -> {
-                        final Optional<TreeNode> child1 = tree1.getChild(child2.getName());
-                        if (child1.isPresent()) {
-                            merge(child1.get(), child2);
-                        } else {
-                            tree1.addChild(child2);
-                        }
-                    });
-            return true;
+    public Optional<TreeNode> merge(final TreeNode tree1, final TreeNode tree2) {
+        if (Objects.isNull(tree1)) {
+            return Optional.ofNullable(tree2);
         }
-        return false;
+        if (Objects.isNull(tree2)) {
+            return Optional.of(tree1);
+        }
+        return Objects.equals(tree1, tree2) ? Optional.of(safeMerge(tree1, tree2)) : Optional.empty();
+    }
+
+    private TreeNode safeMerge(final TreeNode tree1, final TreeNode tree2) {
+        final TreeNode resultTree = new DefaultTreeNode(tree1.getName(), tree1.getType()); // TODO type can be not equals
+        final Seq<TreeNode> mergedChildren = List.ofAll(tree1.getChildren()).appendAll(tree2.getChildren())
+                .groupBy(TreeNode::getName)
+                .map((treeNodeName, treeNodes) -> treeNodes.size() == 1
+                        ? new Tuple2<>(treeNodeName, treeNodes.get(0))
+                        : new Tuple2<>(treeNodeName, treeNodes.reduce(this::safeMerge)))
+                .values();
+        mergedChildren.forEach(resultTree::addChild);
+        return resultTree;
     }
 
 }
