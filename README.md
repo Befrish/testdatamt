@@ -10,6 +10,13 @@ Scenarios:
 Features:
 * simple domain specific language
 * multiple input possibilities (file, builder)
-* multiple output possiblities (database, graph database, objects, ...)
+* multiple output possiblities (database, graph database for visualization, objects, ...)
 * integration in diverent test frameworks (JUnit, Cucumber, ...)
 * visualization tool (based on Neo4J)
+
+Technology/libraries:
+- Spring Boot
+- Scala (Combinator Parser)
+- DbUnit
+- Lombok
+- Vavr
