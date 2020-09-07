@@ -1,3 +1,4 @@
+# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -7,5 +8,43 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+
+# Eclipse project files
+.project
+.settings
+.classpath
+.externalToolBuilders
+.springBeans
+.metadata
+
+# IntelliJ project files
+.idea
+*.iml
+
+# NetBeans project files
+nb-configuration*.xml
+nbactions*.xml
+
+# Maven Shade Plugin
+dependency-reduced-pom.xml
+
+# Logging files
+*.log
+
+# Logging files
+*.log
+
+# Xtext
+model/
+src-gen/
+xtend-gen/
+plugin.xml_gen
+
+# Vaadin
+package.json
+package-lock.json
+webpack.config.js
+webpack.generated.js
+node_modules/
+

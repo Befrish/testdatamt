@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.befrish.testdatamt</groupId>
+        <artifactId>testdatamt-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>testdatamt</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>testdatamt-id</module>
+        <module>testdatamt-tree</module>
+
+        <module>testdatamt-domain</module>
+        <module>testdatamt-api</module>
+        <module>testdatamt-source-dsl-german</module>
+        <module>testdatamt-source-builder</module>
+        <module>testdatamt-processor-evaluation</module>
+        <module>testdatamt-sink-database</module>
+        <module>testdatamt-systemtest</module>
+    </modules>
+
+</project>
