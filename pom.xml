@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.2.RELEASE</version>
+        <version>2.3.1.RELEASE</version>
     </parent>
 
     <groupId>de.befrish.testdatamt</groupId>
@@ -19,5 +19,284 @@
         <module>testdatamt-tools</module>
         <module>testdatamt-samples</module>
     </modules>
+
+    <properties>
+        <java.version>11</java.version>
+        <java.source>11</java.source>
+        <java.target>11</java.target>
+        <java.compiler>11</java.compiler>
+        <project.build.java.target>${java.target}</project.build.java.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <spring-boot.version>2.3.1.RELEASE</spring-boot.version><!-- same version like parent -->
+
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <spotbugs-maven-plugin.version>4.0.4</spotbugs-maven-plugin.version>
+        <spotbugs.version>4.0.4</spotbugs.version>
+        <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
+        <checkstyle.version>8.34</checkstyle.version>
+        <jqassistant-maven-plugin.version>1.8.0</jqassistant-maven-plugin.version>
+        <pitest-maven.version>1.5.2</pitest-maven.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>${spotbugs-maven-plugin.version}</version>
+                    <dependencies>
+                        <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+                        <dependency>
+                            <groupId>com.github.spotbugs</groupId>
+                            <artifactId>spotbugs</artifactId>
+                            <version>${spotbugs.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <threshold>low</threshold>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>${checkstyle.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <checkstyleRules>
+                            <module name="Checker">
+                                <module name="SuppressionFilter">
+                                    <property name="file" value="suppressions.xml" />
+                                    <property name="optional" value="true" />
+                                </module>
+                                <module name="TreeWalker">
+                                    <!-- Allgemeine Konventionen -->
+                                    <module name="OneTopLevelClass" />
+                                    <module name="OneStatementPerLine" />
+                                    <module name="OuterTypeFilename">
+                                        <property name="severity" value="error" />
+                                    </module>
+
+                                    <!-- Checks for imports -->
+                                    <module name="AvoidStarImport" />
+                                    <module name="IllegalImport">
+                                        <property name="illegalClasses" value="org.springframework.util.Assert,com.ibm.icu.math.BigDecimal" />
+                                    </module>
+
+                                    <!-- Checks for Annotations -->
+                                    <module name="MissingOverride" />
+                                </module>
+                            </module>
+                        </checkstyleRules>
+                    </configuration>
+                </plugin>
+
+<!--                <plugin>-->
+<!--                    <groupId>com.buschmais.jqassistant</groupId>-->
+<!--                    <artifactId>jqassistant-maven-plugin</artifactId>-->
+<!--                    <version>${jqassistant-maven-plugin.version}</version>-->
+<!--                    <configuration>-->
+<!--                        <failOnSeverity>info</failOnSeverity>-->
+<!--                    </configuration>-->
+<!--                    <dependencies>-->
+<!--                        <dependency>-->
+<!--                            <groupId>com.buschmais.jqassistant.plugin</groupId>-->
+<!--                            <artifactId>jpa2</artifactId>-->
+<!--                            <version>${jqassistant-maven-plugin.version}</version>-->
+<!--                        </dependency>-->
+<!--                        <dependency>-->
+<!--                            <groupId>com.buschmais.jqassistant.plugin</groupId>-->
+<!--                            <artifactId>java8</artifactId>-->
+<!--                            <version>${jqassistant-maven-plugin.version}</version>-->
+<!--                        </dependency>-->
+<!--                    </dependencies>-->
+<!--                </plugin>-->
+
+<!--                <plugin>-->
+<!--                    <groupId>org.pitest</groupId>-->
+<!--                    <artifactId>pitest-maven</artifactId>-->
+<!--                    <version>${pitest-maven.version}</version>-->
+<!--                    <configuration>-->
+<!--                        <threads>2</threads>-->
+<!--                        <outputFormats>-->
+<!--                            <format>XML</format>-->
+<!--                            <format>HTML</format>-->
+<!--                        </outputFormats>-->
+<!--                        <targetClasses>-->
+<!--                            <param>ag.saxess.*</param>-->
+<!--                        </targetClasses>-->
+<!--                        <targetTests>-->
+<!--                            <param>ag.saxess.*</param>-->
+<!--                        </targetTests>-->
+<!--                        <excludedClasses>-->
+<!--                            <param>**IntegrationTest</param>-->
+<!--                            <param>**SystemTest</param>-->
+<!--                        </excludedClasses>-->
+<!--                        <failWhenNoMutations>false</failWhenNoMutations>-->
+<!--                        <timestampedReports>false</timestampedReports>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>check</id>
+            <activation>
+                <property>
+                    <name>!check.skip</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Sorgt dafür, dass unsere (transitiven) Dependencies sauber sind. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>saxess-default-enforcement</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <!--
+                                            "This rule requires that the version for each dependency resolved during a build,
+                                            is equal to or higher than all transitive dependency declarations.
+                                            The version of each dependency resolved during the build will normally be the version
+                                            specified in the POM or the version with the least transitive steps
+                                            (the "nearest" definition)."
+                                        -->
+                                        <requireMavenVersion>
+                                            <!--Saxess Dependencies bindet Maven Wagon API 3.3.4 ein. Maven Wagon 3.3.x ist nur mit Maven 3.6.1+ kompatibel. Daher muss auf Maven 3.6.1 oder höher aktualisiert werden.-->
+                                            <version>[3.6.1,)</version>
+                                            <message>Bitte Maven aktualisieren. Es wird mindestens Version 3.6.1 erwartet</message>
+                                        </requireMavenVersion>
+
+                                        <!--
+                                        Sorgt dafür, dass (transitive) Dependencies nicht zu stark voneinander abweichen
+                                        dürfen. Verhindert z.B., dass man ein Addon einbinden, dass eine neuere Vaadin-
+                                        Major-Version nutzt, als die eigentlich verwendete:
+
+                                        "This rule requires that the version for each dependency resolved during a build,
+                                        is equal to or higher than all transitive dependency declarations.
+                                        The version of each dependency resolved during the build will normally be the version
+                                        specified in the POM or the version with the least transitive steps
+                                        (the "nearest" definition)."
+                                        -->
+                                        <requireUpperBoundDeps />
+
+                                        <banDuplicatePomDependencyVersions>
+                                            <message>Bitte doppelte Definition von Versionen entfernen.</message>
+                                        </banDuplicatePomDependencyVersions>
+
+                                        <reactorModuleConvergence>
+                                            <ignoreModuleDependencies>true</ignoreModuleDependencies>
+                                            <message>Der Parent und alle Module müssen die selbe Version haben und Module aus dem Reaktor müssen mit Reaktor-Vesrion referenziert werden.</message>
+                                        </reactorModuleConvergence>
+
+                                        <requireSameVersions>
+                                            <message>Maven Surefire und Failsafe verwenden die selbe Basis und sollten daher immer die gleiche Version haben</message>
+                                            <plugins>
+                                                <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                                                <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                                                <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+                                            </plugins>
+                                        </requireSameVersions>
+
+                                        <!-- Sorgt dafür, dass keine Dependencies mitkommen, die explizit verboten sind. -->
+                                        <bannedDependencies>
+                                            <excludes>
+                                                <!-- Stattdessen nutzen wir die SLF4J-JCL-Bridge -->
+                                                <exclude>commons-logging:commons-logging</exclude>
+                                                <exclude>net.jcip:jcip-annotations</exclude>
+                                                <exclude>com.sun.mail:javax.mail</exclude>
+                                                <exclude>javax.mail:javax.mail-api</exclude>
+                                                <exclude>com.google.guava:*:[28.2-android]</exclude>
+                                            </excludes>
+                                            <message>Einige Abhängigkeiten sollen in unseren Saxess Projekten nicht verwendet werden:
+
+                                                - Nicht commons-logging verwenden! Bitte aus Depenecies excludieren, stattdessen verwenden wir slf4j-jcl-bridge.
+                                                - Nicht net.jcip:jcip-annotations verwenden! Wir verwenden stattdessen com.github.stephenc.jcip:jcip-annotations aus lizenzrechtlichen Gründen, siehe #24114
+                                                - Nicht com.sun.mail:javax.mail verwenden! Wir verwenden com.sun.mail:jakarta.mail (Mail Implementierung). Siehe  #20963
+                                                - Nicht javax.mail:javax.mail-api verwenden! Wir verwenden jakarta.mail:jakarta.mail-api (Mail API). Siehe #20963
+                                                - Nicht Google Guava -android Versionen: Diese sind für Java 7 und haben einige Java 8 spezifische Methoden nicht. Dies kann zu Inkompatibilitäten führen auch wenn unsere Third-Party Dependencies Google Guava einsetzen.
+                                            </message>
+                                        </bannedDependencies>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>find-bugs</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>verify-style</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>pitest</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pi-test</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
