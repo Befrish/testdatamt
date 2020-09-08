@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Befrish/testdatamt.svg?token=diU3zY8u2h8512q9UWvK&branch=master)](https://travis-ci.com/Befrish/testdatamt)
+
 # TestDataMT - Test data management tool
 
 Tool for managing test data.
