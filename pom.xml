@@ -312,22 +312,27 @@
         </profile>
 
         <profile>
-            <id>pitest</id>
+            <id>test</id>
+            <activation>
+                <property>
+                    <name>!test.skip</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.pitest</groupId>
-                        <artifactId>pitest-maven</artifactId>
-                        <executions>
-                            <execution>
-                                <id>pi-test</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>mutationCoverage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.pitest</groupId>-->
+<!--                        <artifactId>pitest-maven</artifactId>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>pi-test</id>-->
+<!--                                <phase>integration-test</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>mutationCoverage</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
