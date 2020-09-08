@@ -1,0 +1,15 @@
+# https://docs.travis-ci.com/user/tutorial/
+# https://docs.travis-ci.com/user/languages/java/
+# https://www.vogella.com/tutorials/TravisCi/article.html
+language: java
+jdk:
+  - openjdk11
+
+# see https://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure
+sudo: false
+
+# cache the build tool's caches
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle
