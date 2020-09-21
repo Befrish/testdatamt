@@ -5,7 +5,7 @@
 
 package de.befrish.testdatamt.domain;
 
-import de.befrish.testdatamt.id.util.Assert;
+import de.befrish.testdatamt.util.Assert;
 
 import java.util.Locale;
 
@@ -29,7 +29,7 @@ public class NameConfiguration {
     }
 
     public boolean isPropertyNamesCaseSensitive() {
-        return propertyNamesCaseSensitive;
+        return this.propertyNamesCaseSensitive;
     }
 
     public void setPropertyNamesCaseSensitive(final boolean propertyNamesCaseSensitive) {

@@ -6,7 +6,6 @@
 package de.befrish.testdatamt.domain.tree;
 
 import de.befrish.testdatamt.domain.Reference;
-import de.befrish.testdatamt.tree.TreeNodeName;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,8 +39,9 @@ import static de.befrish.testdatamt.domain.tree.PropertyType.ZEITSTEMPEL_TYP;
 /**
  * @author Benno Müller
  */
+@Deprecated
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
-public enum PropertyValue implements TreeNodeName {
+public enum PropertyValue {
 
     LEERER_WERT(Object.class, null),
     ZEICHENKETTEN_WERT(String.class, ZEICHENKETTEN_TYP),

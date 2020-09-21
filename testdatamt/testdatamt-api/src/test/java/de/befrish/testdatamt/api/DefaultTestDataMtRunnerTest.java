@@ -5,15 +5,15 @@
 
 package de.befrish.testdatamt.api;
 
-import de.befrish.testdatamt.tree.DefaultTreeNode;
-import de.befrish.testdatamt.tree.TreeNode;
-import de.befrish.testdatamt.tree.util.TestTreeNodeType;
+import de.befrish.testdatamt.api.processor.IdentityTestDataProcessor;
+import de.befrish.testdatamt.api.sink.NoOpTestDataSink;
+import de.befrish.testdatamt.api.source.EmptyTestDataSource;
+import io.vavr.collection.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
+import javax.swing.tree.TreeNode;
 
-import static de.befrish.testdatamt.tree.util.TreeMatchers.hasName;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -24,45 +24,20 @@ public class DefaultTestDataMtRunnerTest {
     private DefaultTestDataMtRunner testDataMtRunner;
 
     @Before
-    public void setUp() throws Exception {
-        testDataMtRunner = new DefaultTestDataMtRunner(
-                Arrays.asList(new DummyTestDataSource()),
-                new DummyTestDataSink()
+    public void setUp() {
+        this.testDataMtRunner = new DefaultTestDataMtRunner(
+                List.of(new EmptyTestDataSource()),
+                new NoOpTestDataSink()
         );
-        testDataMtRunner.addProcessor(new DummyTestDataProcessor());
+        this.testDataMtRunner.addProcessor(new IdentityTestDataProcessor());
     }
 
     @Test
-    public void readProcessAndConsume() throws Exception {
-        testDataMtRunner.run();
+    public void readProcessAndConsume() {
+        this.testDataMtRunner.run();
     }
 
     // TODO Multiple sources
     // TODO Multiple processors
-
-    private static class DummyTestDataSource implements TestDataSource {
-
-        @Override
-        public TreeNode readTestData() {
-            return new DefaultTreeNode("test1", TestTreeNodeType.TEST_TYPE);
-        }
-    }
-
-    private static class DummyTestDataProcessor implements TestDataProcessor {
-
-        @Override
-        public TreeNode processTestData(final TreeNode rootNode) {
-            assertThat(rootNode, hasName("test1"));
-            return new DefaultTreeNode("test2", TestTreeNodeType.TEST_TYPE);
-        }
-    }
-
-    private static class DummyTestDataSink implements TestDataSink {
-
-        @Override
-        public void consumeTestData(final TreeNode rootNode) {
-            assertThat(rootNode, hasName("test2"));
-        }
-    }
 
 }

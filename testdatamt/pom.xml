@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>testdatamt-id</module>
-        <module>testdatamt-tree</module>
+        <module>testdatamt-collection</module>
+        <module>testdatamt-util</module>
 
         <module>testdatamt-domain</module>
         <module>testdatamt-api</module>

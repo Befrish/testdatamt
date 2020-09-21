@@ -5,12 +5,11 @@
 
 package de.befrish.testdatamt.domain.tree;
 
-import de.befrish.testdatamt.tree.TreeNodeLabel;
-
 /**
  * @author Benno Müller
  */
-public enum TestDataMtTreeNodeLabel implements TreeNodeLabel {
+@Deprecated
+public enum TestDataMtTreeNodeLabel {
 
     /**
      * Aufzählungs-Datentyp oder -Datenobjekt

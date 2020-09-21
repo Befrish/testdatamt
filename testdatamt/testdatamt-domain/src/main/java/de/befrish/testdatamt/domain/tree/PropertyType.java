@@ -5,12 +5,11 @@
 
 package de.befrish.testdatamt.domain.tree;
 
-import de.befrish.testdatamt.tree.TreeNodeName;
-
 /**
  * @author Benno Müller
  */
-public enum PropertyType implements TreeNodeName {
+@Deprecated
+public enum PropertyType {
 
     ZEICHENKETTEN_TYP,
     WAHRHEITSWERT_TYP,

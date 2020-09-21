@@ -5,12 +5,11 @@
 
 package de.befrish.testdatamt.domain.tree;
 
-import de.befrish.testdatamt.tree.TreeNodeReferenceType;
-
 /**
  * @author Benno Müller
  */
-public enum TestDataMtTreeNodeReferenceType implements TreeNodeReferenceType {
+@Deprecated
+public enum TestDataMtTreeNodeReferenceType {
 
     VOM_TYP,
     ERBT_VON,

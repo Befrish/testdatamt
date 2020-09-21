@@ -1,6 +1,6 @@
 package de.befrish.testdatamt.domain;
 
-import de.befrish.testdatamt.id.util.Assert;
+import de.befrish.testdatamt.util.Assert;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -29,12 +29,12 @@ public class PropertyName {
 
     @Override
     public int hashCode() {
-        return hashCode;
+        return this.hashCode;
     }
 
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 
 }

@@ -5,7 +5,7 @@
 
 package de.befrish.testdatamt.domain;
 
-import de.befrish.testdatamt.id.util.Assert;
+import de.befrish.testdatamt.util.Assert;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -89,8 +89,8 @@ public class QualifiedName {
             this.packageName = null;
         }
 
-        this.fullQualifiedName = isStandardPackage(packageName) ? name : (packageName + SEPARATOR + name);
-        this.hashCode = Objects.hashCode(fullQualifiedName.toLowerCase(NAME_LOCALE));
+        this.fullQualifiedName = isStandardPackage(this.packageName) ? name : (this.packageName + SEPARATOR + name);
+        this.hashCode = Objects.hashCode(this.fullQualifiedName.toLowerCase(NAME_LOCALE));
     }
 
     public static QualifiedName fromString(final String qualifiedName) {
@@ -126,12 +126,12 @@ public class QualifiedName {
      * @return true, wenn in Standard-Paket (explizit nicht zu Paket zugeordnet); false anderfalls
      */
     public boolean isInStandardPackage() {
-        return isStandardPackage(packageName);
+        return isStandardPackage(this.packageName);
     }
 
     @Override
     public int hashCode() {
-        return hashCode;
+        return this.hashCode;
     }
 
     @Override

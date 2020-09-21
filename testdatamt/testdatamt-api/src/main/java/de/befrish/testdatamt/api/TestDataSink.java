@@ -5,13 +5,11 @@
 
 package de.befrish.testdatamt.api;
 
-import de.befrish.testdatamt.tree.TreeNode;
-
 /**
  * @author Benno Müller
  */
 public interface TestDataSink {
 
-    void consumeTestData(TreeNode rootNode);
+    void consumeTestData(Void testData);
 
 }

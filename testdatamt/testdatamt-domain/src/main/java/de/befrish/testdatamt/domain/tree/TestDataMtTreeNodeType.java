@@ -5,12 +5,11 @@
 
 package de.befrish.testdatamt.domain.tree;
 
-import de.befrish.testdatamt.tree.TreeNodeType;
-
 /**
  * @author Benno Müller
  */
-public enum TestDataMtTreeNodeType implements TreeNodeType {
+@Deprecated
+public enum TestDataMtTreeNodeType {
 
     PAKET,
     BENANNTER_DATEN_TYP,
