@@ -23,6 +23,7 @@
         <module>testdatamt-processor-evaluation</module>
         <module>testdatamt-sink-database</module>
         <module>testdatamt-systemtest</module>
+        <module>testdatamt-benchmark</module>
     </modules>
 
     <properties>

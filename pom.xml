@@ -31,6 +31,9 @@
 
         <spring-boot.version>2.3.1.RELEASE</spring-boot.version><!-- same version like parent -->
 
+        <!-- Benchmark -->
+        <jmh.version>1.21</jmh.version>
+
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <spotbugs-maven-plugin.version>4.0.4</spotbugs-maven-plugin.version>
         <spotbugs.version>4.0.4</spotbugs.version>
@@ -39,6 +42,23 @@
         <jqassistant-maven-plugin.version>1.8.0</jqassistant-maven-plugin.version>
         <pitest-maven.version>1.5.2</pitest-maven.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Benchmark -->
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-core</artifactId>
+                <version>${jmh.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-generator-annprocess</artifactId>
+                <version>${jmh.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
@@ -191,10 +211,10 @@
 
     <profiles>
         <profile>
-            <id>check</id>
+            <id>execute-checks</id>
             <activation>
                 <property>
-                    <name>!check.skip</name>
+                    <name>!checks.skip</name>
                 </property>
             </activation>
             <build>
@@ -312,10 +332,10 @@
         </profile>
 
         <profile>
-            <id>test</id>
+            <id>execute-tests</id>
             <activation>
                 <property>
-                    <name>!test.skip</name>
+                    <name>!tests.skip</name>
                 </property>
             </activation>
             <build>
