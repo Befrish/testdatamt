@@ -31,9 +31,7 @@
 
         <spring-boot.version>2.3.1.RELEASE</spring-boot.version><!-- same version like parent -->
 
-        <!-- Benchmark -->
-        <jmh.version>1.21</jmh.version>
-
+        <!-- Quality checks -->
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <spotbugs-maven-plugin.version>4.0.4</spotbugs-maven-plugin.version>
         <spotbugs.version>4.0.4</spotbugs.version>
@@ -41,10 +39,18 @@
         <checkstyle.version>8.34</checkstyle.version>
         <jqassistant-maven-plugin.version>1.8.0</jqassistant-maven-plugin.version>
 
+        <!-- Test -->
         <pitest-maven.version>1.5.2</pitest-maven.version>
 
-        <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
+        <!-- Coverage -->
+        <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
+
+        <!-- Benchmark -->
+        <jmh.version>1.21</jmh.version>
+
+        <!-- avoid JVM startup error Could not find or load main class @{argLine} when using late property evaluation and jacoco-maven-plugin not executed -->
+        <argLine></argLine>
     </properties>
 
     <dependencyManagement>
@@ -155,9 +161,21 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
-                        <forkCount>2</forkCount>
-                        <reuseForks>true</reuseForks>
-                        <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+                        <excludes>
+                            <exclude>**/*$*</exclude>
+                            <exclude>**/*IntegrationTest.java</exclude>
+                            <exclude>**/*SystemTest.java</exclude>
+                        </excludes>
+                        </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <configuration>
+                        <includes>
+                            <include>**/*IntegrationTest.java</include>
+                            <include>**/*SystemTest.java</include>
+                        </includes>
                     </configuration>
                 </plugin>
 
@@ -185,6 +203,17 @@
 <!--                        <timestampedReports>false</timestampedReports>-->
 <!--                    </configuration>-->
 <!--                </plugin>-->
+
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>${coveralls-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -354,6 +383,30 @@
             </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>verify</id>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
 <!--                    <plugin>-->
 <!--                        <groupId>org.pitest</groupId>-->
 <!--                        <artifactId>pitest-maven</artifactId>-->
@@ -384,20 +437,45 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>${jacoco-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>
                                 <goals>
                                     <goal>prepare-agent</goal>
                                 </goals>
+                                <configuration>
+                                    <propertyName>surefireArgLine</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>prepare-agent-integration</id>
+                                <goals>
+                                    <goal>prepare-agent-integration</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>failsafeArgLine</propertyName>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>${surefireArgLine}</argLine>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <argLine>${failsafeArgLine}</argLine>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
                         <groupId>org.eluder.coveralls</groupId>
                         <artifactId>coveralls-maven-plugin</artifactId>
-                        <version>${coveralls-maven-plugin.version}</version>
                     </plugin>
                 </plugins>
             </build>
