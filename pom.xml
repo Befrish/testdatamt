@@ -480,6 +480,7 @@
                             <dependency>
                                 <groupId>javax.xml.bind</groupId>
                                 <artifactId>jaxb-api</artifactId>
+                                <version>${javax-jaxb.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
