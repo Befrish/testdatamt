@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Befrish/testdatamt.svg?token=diU3zY8u2h8512q9UWvK&branch=master)](https://travis-ci.com/Befrish/testdatamt)
+[![Build Status](https://travis-ci.com/Befrish/testdatamt.svg?branch=master)](https://travis-ci.com/Befrish/testdatamt)
 [![Coverage Status](https://coveralls.io/repos/github/Befrish/testdatamt/badge.svg?branch=master)](https://coveralls.io/github/Befrish/testdatamt?branch=master)
 
 # TestDataMT - Test data management tool
