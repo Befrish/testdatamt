@@ -4,15 +4,20 @@
 language: java
 jdk:
   - openjdk11
-  -
+
+install: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 after_success:
-  - mvn clean test jacoco:report coveralls:report -Dchecks.skip
+  - mvn test jacoco:report coveralls:report -Dchecks.skip -Dmaven.javadoc.skip=true -B -V
+  # Deploy Maven Site to GitHub (https://befrish.github.io/testdatamt)
+  # http://maven.apache.org/plugins/maven-scm-publish-plugin/various-tips.html
+  # https://blog.soebes.de/blog/2015/06/12/making-github-page-for-mojohaus/
+  - mvn clean site site:stage -Dmaven.javadoc.skip=true -B -V
+  - mvn scm-publish:publish-scm -B -V
 
-# see https://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure
-sudo: false
-
-# cache the build tool's caches
 cache:
   directories:
     - $HOME/.m2
-    - $HOME/.gradle
+
+# see https://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure
+sudo: false

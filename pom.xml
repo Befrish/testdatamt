@@ -92,6 +92,7 @@
 
         <!-- Documentation -->
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
+        <velocity.version>1.7</velocity.version><!-- for maven-fluido-skin 1.9 -->
         <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <maven-scm-publish-plugin.version>1.1</maven-scm-publish-plugin.version>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
@@ -275,6 +276,13 @@
                     <configuration>
                         <topSiteURL>${project.distributionManagement.site.url}</topSiteURL>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.velocity</groupId>
+                            <artifactId>velocity</artifactId>
+                            <version>${velocity.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -282,12 +290,9 @@
                     <version>${maven-scm-publish-plugin.version}</version>
                     <configuration>
                         <scmBranch>gh-pages</scmBranch>
+                        <tryUpdate>true</tryUpdate><!-- Improving SCM Checkout Performance -->
                     </configuration>
                 </plugin>
-                <!-- http://maven.apache.org/plugins/maven-scm-publish-plugin/various-tips.html -->
-                <!-- https://blog.soebes.de/blog/2015/06/12/making-github-page-for-mojohaus/ -->
-                <!-- $ mvn clean site site:stage -->
-                <!-- $ mvn scm-publish:publish-scm -->
             </plugins>
         </pluginManagement>
 
@@ -348,30 +353,11 @@
                                 </goals>
                                 <configuration>
                                     <rules>
-                                        <!--
-                                            "This rule requires that the version for each dependency resolved during a build,
-                                            is equal to or higher than all transitive dependency declarations.
-                                            The version of each dependency resolved during the build will normally be the version
-                                            specified in the POM or the version with the least transitive steps
-                                            (the "nearest" definition)."
-                                        -->
                                         <requireMavenVersion>
-                                            <!--Saxess Dependencies bindet Maven Wagon API 3.3.4 ein. Maven Wagon 3.3.x ist nur mit Maven 3.6.1+ kompatibel. Daher muss auf Maven 3.6.1 oder höher aktualisiert werden.-->
                                             <version>[3.6.1,)</version>
                                             <message>Bitte Maven aktualisieren. Es wird mindestens Version 3.6.1 erwartet</message>
                                         </requireMavenVersion>
 
-                                        <!--
-                                        Sorgt dafür, dass (transitive) Dependencies nicht zu stark voneinander abweichen
-                                        dürfen. Verhindert z.B., dass man ein Addon einbinden, dass eine neuere Vaadin-
-                                        Major-Version nutzt, als die eigentlich verwendete:
-
-                                        "This rule requires that the version for each dependency resolved during a build,
-                                        is equal to or higher than all transitive dependency declarations.
-                                        The version of each dependency resolved during the build will normally be the version
-                                        specified in the POM or the version with the least transitive steps
-                                        (the "nearest" definition)."
-                                        -->
                                         <requireUpperBoundDeps />
 
                                         <banDuplicatePomDependencyVersions>
@@ -392,11 +378,9 @@
                                             </plugins>
                                         </requireSameVersions>
 
-                                        <!-- Sorgt dafür, dass keine Dependencies mitkommen, die explizit verboten sind. -->
                                         <bannedDependencies>
                                             <excludes>
-                                                <!-- Stattdessen nutzen wir die SLF4J-JCL-Bridge -->
-                                                <exclude>commons-logging:commons-logging</exclude>
+                                                <exclude>commons-logging:commons-logging</exclude><!-- SLF4J JCL bridge instead -->
                                                 <exclude>net.jcip:jcip-annotations</exclude>
                                                 <exclude>com.sun.mail:javax.mail</exclude>
                                                 <exclude>javax.mail:javax.mail-api</exclude>
