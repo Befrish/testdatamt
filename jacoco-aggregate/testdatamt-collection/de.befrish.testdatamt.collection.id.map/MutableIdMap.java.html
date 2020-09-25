@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MutableIdMap.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">TestDataMT - Domain</a> &gt; <a href="../index.html" class="el_bundle">testdatamt-collection</a> &gt; <a href="index.source.html" class="el_package">de.befrish.testdatamt.collection.id.map</a> &gt; <span class="el_source">MutableIdMap.java</span></div><h1>MutableIdMap.java</h1><pre class="source lang-java linenums">package de.befrish.testdatamt.collection.id.map;
+
+import de.befrish.testdatamt.collection.id.Identifiable;
+import de.befrish.testdatamt.util.Assert;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+/**
+ * @author Benno Müller
+ */
+public class MutableIdMap&lt;E extends Identifiable&lt;?&gt;&gt; implements IdMap&lt;E&gt; {
+
+    private final Map&lt;Object, E&gt; elements;
+
+<span class="nc" id="L24">    public MutableIdMap() {</span>
+<span class="nc" id="L25">        this.elements = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L26">    }</span>
+
+    public MutableIdMap(final E... elements) {
+<span class="nc" id="L29">        this();</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (elements != null) {</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">            for (final E element : elements) {</span>
+<span class="nc" id="L32">                add(element);</span>
+            }
+        }
+<span class="nc" id="L35">    }</span>
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public MutableIdMap(final Iterable&lt;? extends E&gt; elements) {
+<span class="nc" id="L39">        this();</span>
+        // Wenn es eine MutableIdMap ist, brauchen wir keine Prüfung durchführen und müssen auch
+        // die Elemente nicht einzeln hinzufügen. Wir können direkt kopieren und die effizientere
+        // Map.putAll()-Methode verwenden.
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (elements instanceof MutableIdMap) {</span>
+<span class="nc" id="L44">            final MutableIdMap&lt;E&gt; otherMap = (MutableIdMap&lt;E&gt;) elements;</span>
+<span class="nc" id="L45">            this.elements.putAll(otherMap.elements);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        } else if (elements != null) {</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">            for (final E element : elements) {</span>
+<span class="nc" id="L48">                add(element);</span>
+<span class="nc" id="L49">            }</span>
+        }
+<span class="nc" id="L51">    }</span>
+
+    @Override
+    public boolean containsId(final Object id) {
+<span class="nc" id="L55">        return this.elements.containsKey(id);</span>
+    }
+
+    @Override
+    public boolean contains(final E value) {
+<span class="nc" id="L60">        return this.elements.containsValue(value);</span>
+    }
+
+    @Override
+    public E get(final Object id) {
+<span class="nc" id="L65">        Assert.notNull(id, &quot;id&quot;);</span>
+<span class="nc" id="L66">        return this.elements.get(id);</span>
+    }
+
+    @Override
+    public final boolean add(final E value) {
+<span class="nc" id="L71">        Assert.notNull(value, &quot;value&quot;);</span>
+<span class="nc" id="L72">        final Object id = value.getId();</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        return this.elements.put(id, value) == value;</span>
+    }
+
+    @Override
+    public void addAll(final IdMap&lt;? extends E&gt; c) {
+<span class="nc" id="L78">        this.elements.putAll(c.valuesWithIds());</span>
+<span class="nc" id="L79">    }</span>
+
+    @Override
+    public boolean remove(final Object id) {
+<span class="nc" id="L83">        Assert.notNull(id, &quot;id&quot;);</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        return this.elements.remove(id) != null;</span>
+    }
+
+    @Override
+    public void removeAll(final Collection&lt;?&gt; ids) {
+<span class="nc" id="L89">        this.elements.keySet().removeAll(ids);</span>
+<span class="nc" id="L90">    }</span>
+
+    @Override
+    public int size() {
+<span class="nc" id="L94">        return this.elements.size();</span>
+    }
+
+    @Override
+    public boolean isEmpty() {
+<span class="nc" id="L99">        return this.elements.isEmpty();</span>
+    }
+
+    @Override
+    public Set&lt;Object&gt; ids() {
+<span class="nc" id="L104">        return this.elements.keySet();</span>
+    }
+
+    @Override
+    public Collection&lt;E&gt; values() {
+<span class="nc" id="L109">        return this.elements.values();</span>
+    }
+
+    @Override
+    public Map&lt;Object, E&gt; valuesWithIds() {
+<span class="nc" id="L114">        return Collections.unmodifiableMap(this.elements);</span>
+    }
+
+    @Override
+    public Iterator&lt;E&gt; iterator() {
+<span class="nc" id="L119">        return values().iterator();</span>
+    }
+
+    @Override
+    public Stream&lt;E&gt; stream() {
+<span class="nc" id="L124">        return StreamSupport.stream(spliterator(), false);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L129">        return Objects.hashCode(this.elements);</span>
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L135">            return false;</span>
+        }
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (!(obj instanceof IdMap)) {</span>
+<span class="nc" id="L138">            return false;</span>
+        }
+<span class="nc" id="L140">        final IdMap&lt;E&gt; other = (IdMap&lt;E&gt;) obj;</span>
+<span class="nc" id="L141">        return Arrays.equals(this.values().toArray(), other.values().toArray());</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L146">        return this.elements.values().toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+TestDataMT - Benchmarks/testdatamt-api,de.befrish.testdatamt.api.sink,NoOpTestDataSink,4,0,0,0,2,0,2,0,2,0
+TestDataMT - Benchmarks/testdatamt-api,de.befrish.testdatamt.api.processor,IdentityTestDataProcessor,5,0,0,0,2,0,2,0,2,0
+TestDataMT - Benchmarks/testdatamt-api,de.befrish.testdatamt.api.source,EmptyTestDataSource,5,0,0,0,2,0,2,0,2,0
+TestDataMT - Benchmarks/testdatamt-api,de.befrish.testdatamt.api,DefaultTestDataMtRunner,56,0,0,0,17,0,5,0,5,0
+TestDataMT - Benchmarks/testdatamt-api,de.befrish.testdatamt.api,TestDataMtException,4,0,0,0,2,0,1,0,1,0
