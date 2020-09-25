@@ -12,6 +12,9 @@
     <artifactId>testdatamt</artifactId>
     <packaging>pom</packaging>
 
+    <name>TestDataMT - Core Parent</name>
+    <description>Parent module of core library</description>
+
     <modules>
         <module>testdatamt-collection</module>
         <module>testdatamt-util</module>

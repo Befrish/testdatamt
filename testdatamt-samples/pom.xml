@@ -12,6 +12,9 @@
     <artifactId>testdatamt-samples</artifactId>
     <packaging>pom</packaging>
 
+    <name>TestDataMT - Samples</name>
+    <description>Sample projects that uses TestDataMT in order to show how you can use it</description>
+
     <modules>
     </modules>
 

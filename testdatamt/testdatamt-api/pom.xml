@@ -12,6 +12,9 @@
     <artifactId>testdatamt-api</artifactId>
     <packaging>jar</packaging>
 
+    <name>TestDataMT - API</name>
+    <description>API to run TestDataMT</description>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>

@@ -12,6 +12,9 @@
     <artifactId>testdatamt-domain</artifactId>
     <packaging>jar</packaging>
 
+    <name>TestDataMT - Domain</name>
+    <description>Domain objects for reading, evaluating and processing test data</description>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>

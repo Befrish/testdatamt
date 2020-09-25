@@ -12,4 +12,7 @@
     <artifactId>testdatamt-systemtest</artifactId>
     <packaging>jar</packaging>
 
+    <name>TestDataMT - Systemtest</name>
+    <description>Systemtests to test full roundtrips of running TestDataMT</description>
+
 </project>

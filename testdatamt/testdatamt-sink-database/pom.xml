@@ -12,4 +12,7 @@
     <artifactId>testdatamt-sink-database</artifactId>
     <packaging>jar</packaging>
 
+    <name>TestDataMT - Database Sink</name>
+    <description>TestDataMT sink to export test data to database</description>
+
 </project>

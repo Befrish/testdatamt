@@ -10,6 +10,10 @@
     </parent>
 
     <artifactId>testdatamt-benchmark</artifactId>
+    <packaging>jar</packaging>
+
+    <name>TestDataMT - Benchmarks</name>
+    <description>Benchmark tests in order to prove performance improvments</description>
 
     <dependencies>
         <dependency>
@@ -27,6 +31,13 @@
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-generator-annprocess</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -12,4 +12,7 @@
     <artifactId>testdatamt-processor-evaluation</artifactId>
     <packaging>jar</packaging>
 
+    <name>TestDataMT - Evaluation</name>
+    <description>TestDataMT processors for verifing test data semantically</description>
+
 </project>

@@ -10,6 +10,10 @@
     </parent>
 
     <artifactId>testdatamt-util</artifactId>
+    <packaging>jar</packaging>
+
+    <name>TestDataMT - Utilities</name>
+    <description>General, frequently used utility classes</description>
 
     <dependencies>
         <dependency>

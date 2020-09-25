@@ -12,6 +12,9 @@
     <artifactId>testdatamt-tools</artifactId>
     <packaging>pom</packaging>
 
+    <name>TestDataMT - Tools</name>
+    <description>Tools for simple usage and additional information</description>
+
     <modules>
     </modules>
 

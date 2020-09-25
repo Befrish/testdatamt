@@ -12,4 +12,7 @@
     <artifactId>testdatamt-source-builder</artifactId>
     <packaging>jar</packaging>
 
+    <name>TestDataMT - Builder Source</name>
+    <description>TestDataMT source for reading test data of an data object builder</description>
+
 </project>
