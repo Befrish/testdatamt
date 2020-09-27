@@ -258,6 +258,7 @@
                     <configuration>
                         <excludes>
                             <exclude>**/jmh_generated/*.java</exclude>
+                            <exclude>**/BenchmarkRunner.java</exclude><!-- class for manual running benchmarks -->
                         </excludes>
                     </configuration>
                 </plugin>
