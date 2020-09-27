@@ -35,13 +35,17 @@ public class DefaultTestDataMtRunner implements TestDataMtRunner {
 
     @Override
     public void run() throws TestDataMtException {
-        final Void source = this.testDataSources//.parallelStream()
-                .map(TestDataSource::readTestData)
-                .reduce(((testData1, testData2) -> null));
-        final Void processed = io.vavr.collection.List.ofAll(this.testDataProcessors)
-                .foldLeft(source, ((treeNode, testDataProcessor) -> testDataProcessor.processTestData(treeNode)));
+        try {
+            final Void sourceTestData = this.testDataSources.toJavaParallelStream()
+                    .map(TestDataSource::readTestData)
+                    .reduce(null, ((testData1, testData2) -> null));
+            final Void processedTestData = io.vavr.collection.List.ofAll(this.testDataProcessors)
+                    .foldLeft(sourceTestData, ((testData, testDataProcessor) -> testDataProcessor.processTestData(testData)));
 
-        this.testDataSink.consumeTestData(processed);
+            this.testDataSink.consumeTestData(processedTestData);
+        } catch (final Exception e) {
+            throw new TestDataMtException("error runnning " + getClass(), e);
+        }
     }
 
 }

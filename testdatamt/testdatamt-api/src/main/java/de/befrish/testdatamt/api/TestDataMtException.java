@@ -12,8 +12,8 @@ public class TestDataMtException extends RuntimeException {
 
     private static final long serialVersionUID = -1884540876508468377L;
 
-    public TestDataMtException(final String message) {
-        super(message);
+    public TestDataMtException(final String message, final Throwable error) {
+        super(message, error);
     }
 
 }

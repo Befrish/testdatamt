@@ -8,6 +8,7 @@ package de.befrish.testdatamt.api;
 /**
  * @author Benno Müller
  */
+@FunctionalInterface
 public interface TestDataSink {
 
     void consumeTestData(Void testData);
