@@ -35,14 +35,18 @@ public class DefaultTestDataMtRunner implements TestDataMtRunner {
 
     @Override
     public void run() throws TestDataMtException {
-<span class="nc" id="L38">        final Void source = this.testDataSources//.parallelStream()</span>
-<span class="nc" id="L39">                .map(TestDataSource::readTestData)</span>
-<span class="nc" id="L40">                .reduce(((testData1, testData2) -&gt; null));</span>
-<span class="nc" id="L41">        final Void processed = io.vavr.collection.List.ofAll(this.testDataProcessors)</span>
-<span class="nc" id="L42">                .foldLeft(source, ((treeNode, testDataProcessor) -&gt; testDataProcessor.processTestData(treeNode)));</span>
+        try {
+<span class="nc" id="L39">            final Void sourceTestData = this.testDataSources.toJavaParallelStream()</span>
+<span class="nc" id="L40">                    .map(TestDataSource::readTestData)</span>
+<span class="nc" id="L41">                    .reduce(null, ((testData1, testData2) -&gt; null));</span>
+<span class="nc" id="L42">            final Void processedTestData = io.vavr.collection.List.ofAll(this.testDataProcessors)</span>
+<span class="nc" id="L43">                    .foldLeft(sourceTestData, ((testData, testDataProcessor) -&gt; testDataProcessor.processTestData(testData)));</span>
 
-<span class="nc" id="L44">        this.testDataSink.consumeTestData(processed);</span>
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L45">            this.testDataSink.consumeTestData(processedTestData);</span>
+<span class="nc" id="L46">        } catch (final Exception e) {</span>
+<span class="nc" id="L47">            throw new TestDataMtException(&quot;error runnning &quot; + getClass(), e);</span>
+<span class="nc" id="L48">        }</span>
+<span class="nc" id="L49">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

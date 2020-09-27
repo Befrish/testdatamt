@@ -15,25 +15,25 @@ import java.util.stream.Collector;
  *
  * @author Benno Müller
  */
-<span class="nc" id="L18">public class IdMapCollector&lt;E extends Identifiable&lt;?&gt;&gt; implements Collector&lt;E, MutableIdMap&lt;E&gt;, IdMap&lt;E&gt;&gt; {</span>
+<span class="fc" id="L18">public class IdMapCollector&lt;E extends Identifiable&lt;?&gt;&gt; implements Collector&lt;E, MutableIdMap&lt;E&gt;, IdMap&lt;E&gt;&gt; {</span>
 
     public static &lt;E extends Identifiable&lt;?&gt;&gt; IdMapCollector&lt;E&gt; toIdMap() {
-<span class="nc" id="L21">        return new IdMapCollector&lt;&gt;();</span>
+<span class="fc" id="L21">        return new IdMapCollector&lt;&gt;();</span>
     }
 
     @Override
     public Supplier&lt;MutableIdMap&lt;E&gt;&gt; supplier() {
-<span class="nc" id="L26">        return MutableIdMap::new;</span>
+<span class="fc" id="L26">        return MutableIdMap::new;</span>
     }
 
     @Override
     public BiConsumer&lt;MutableIdMap&lt;E&gt;, E&gt; accumulator() {
-<span class="nc" id="L31">        return IdMap::add;</span>
+<span class="fc" id="L31">        return IdMap::add;</span>
     }
 
     @Override
     public BinaryOperator&lt;MutableIdMap&lt;E&gt;&gt; combiner() {
-<span class="nc" id="L36">        return (left, right) -&gt; {</span>
+<span class="fc" id="L36">        return (left, right) -&gt; {</span>
 <span class="nc" id="L37">            left.addAll(right);</span>
 <span class="nc" id="L38">            return left;</span>
         };
@@ -46,7 +46,7 @@ import java.util.stream.Collector;
 
     @Override
     public Set&lt;Characteristics&gt; characteristics() {
-<span class="nc" id="L49">        return EnumSet.of(Characteristics.IDENTITY_FINISH);</span>
+<span class="fc" id="L49">        return EnumSet.of(Characteristics.IDENTITY_FINISH);</span>
     }
 
 }

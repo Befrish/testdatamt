@@ -21,38 +21,38 @@ public final class Assert {
     }
 
     public static void notNull(final Object object, final String parameterName) throws IllegalArgumentException {
-<span class="nc bnc" id="L24" title="All 2 branches missed.">        if (object == null) {</span>
-<span class="nc" id="L25">            throw new IllegalArgumentException(</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (object == null) {</span>
+<span class="fc" id="L25">            throw new IllegalArgumentException(</span>
                     new StringBuilder(50)
-<span class="nc" id="L27">                    .append(&quot;The parameter [&quot;)</span>
-<span class="nc" id="L28">                    .append(parameterName)</span>
-<span class="nc" id="L29">                    .append(&quot;] must not be null!&quot;)</span>
-<span class="nc" id="L30">                    .toString());</span>
+<span class="fc" id="L27">                    .append(&quot;The parameter [&quot;)</span>
+<span class="fc" id="L28">                    .append(parameterName)</span>
+<span class="fc" id="L29">                    .append(&quot;] must not be null!&quot;)</span>
+<span class="fc" id="L30">                    .toString());</span>
         }
-<span class="nc" id="L32">    }</span>
+<span class="fc" id="L32">    }</span>
 
     public static void notEmpty(final Collection&lt;?&gt; collection, final String parameterName) throws IllegalArgumentException {
-<span class="nc" id="L35">        notNull(collection, parameterName);</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (collection.isEmpty()) {</span>
-<span class="nc" id="L37">            throw new IllegalArgumentException(</span>
+<span class="fc" id="L35">        notNull(collection, parameterName);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (collection.isEmpty()) {</span>
+<span class="fc" id="L37">            throw new IllegalArgumentException(</span>
                     new StringBuilder(50)
-<span class="nc" id="L39">                            .append(&quot;The parameter [&quot;)</span>
-<span class="nc" id="L40">                            .append(parameterName)</span>
-<span class="nc" id="L41">                            .append(&quot;] must not be empty!&quot;)</span>
-<span class="nc" id="L42">                            .toString());</span>
+<span class="fc" id="L39">                            .append(&quot;The parameter [&quot;)</span>
+<span class="fc" id="L40">                            .append(parameterName)</span>
+<span class="fc" id="L41">                            .append(&quot;] must not be empty!&quot;)</span>
+<span class="fc" id="L42">                            .toString());</span>
         }
-<span class="nc" id="L44">    }</span>
+<span class="fc" id="L44">    }</span>
 
     public static void notEmpty(final Traversable&lt;?&gt; traversable, final String parameterName) throws IllegalArgumentException {
-<span class="nc" id="L47">        notNull(traversable, parameterName);</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (traversable.isEmpty()) {</span>
-<span class="nc" id="L49">            throw new IllegalArgumentException(</span>
+<span class="fc" id="L47">        notNull(traversable, parameterName);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (traversable.isEmpty()) {</span>
+<span class="fc" id="L49">            throw new IllegalArgumentException(</span>
                     new StringBuilder(50)
-<span class="nc" id="L51">                            .append(&quot;The parameter [&quot;)</span>
-<span class="nc" id="L52">                            .append(parameterName)</span>
-<span class="nc" id="L53">                            .append(&quot;] must not be empty!&quot;)</span>
-<span class="nc" id="L54">                            .toString());</span>
+<span class="fc" id="L51">                            .append(&quot;The parameter [&quot;)</span>
+<span class="fc" id="L52">                            .append(parameterName)</span>
+<span class="fc" id="L53">                            .append(&quot;] must not be empty!&quot;)</span>
+<span class="fc" id="L54">                            .toString());</span>
         }
-<span class="nc" id="L56">    }</span>
+<span class="fc" id="L56">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

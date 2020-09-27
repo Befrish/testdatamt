@@ -14,19 +14,19 @@ public final class IdMaps {
     }
 
     public static &lt;E extends Identifiable&lt;?&gt;&gt; IdMap&lt;E&gt; immutable(final Collection&lt;? extends E&gt; items) {
-<span class="nc" id="L17">        return new ImmutableIdMap&lt;&gt;(new MutableIdMap&lt;&gt;(items));</span>
+<span class="fc" id="L17">        return new ImmutableIdMap&lt;&gt;(new MutableIdMap&lt;&gt;(items));</span>
     }
 
     public static &lt;E extends Identifiable&lt;?&gt;&gt; IdMap&lt;E&gt; immutable(final E... items) {
-<span class="nc" id="L21">        return new ImmutableIdMap&lt;&gt;(new MutableIdMap&lt;&gt;(items));</span>
+<span class="fc" id="L21">        return new ImmutableIdMap&lt;&gt;(new MutableIdMap&lt;&gt;(items));</span>
     }
 
     public static &lt;E extends Identifiable&lt;?&gt;&gt; IdMap&lt;E&gt; immutable(final IdMap&lt;? extends E&gt; idMap) {
-<span class="nc" id="L25">        return new ImmutableIdMap&lt;&gt;(idMap);</span>
+<span class="fc" id="L25">        return new ImmutableIdMap&lt;&gt;(idMap);</span>
     }
 
     public static &lt;E extends Identifiable&lt;?&gt;&gt; IdMap&lt;E&gt; empty() {
-<span class="nc" id="L29">        return new EmptyIdMap&lt;&gt;();</span>
+<span class="fc" id="L29">        return new EmptyIdMap&lt;&gt;();</span>
     }
 
 }
