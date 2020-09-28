@@ -255,12 +255,6 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco-maven-plugin.version}</version>
-                    <configuration>
-                        <excludes>
-                            <exclude>**/jmh_generated/*.java</exclude>
-                            <exclude>**/BenchmarkRunner.java</exclude><!-- class for manual running benchmarks -->
-                        </excludes>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.eluder.coveralls</groupId>

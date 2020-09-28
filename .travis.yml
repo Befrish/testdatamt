@@ -12,8 +12,8 @@ after_success:
   # Deploy Maven Site to GitHub (https://befrish.github.io/testdatamt)
   # http://maven.apache.org/plugins/maven-scm-publish-plugin/various-tips.html
   # https://blog.soebes.de/blog/2015/06/12/making-github-page-for-mojohaus/
-  - mvn site site:stage -Dmaven.javadoc.skip=true -B -V
-  - mvn scm-publish:publish-scm -B -V
+#  - mvn site site:stage -Dmaven.javadoc.skip=true -B -V
+#  - mvn scm-publish:publish-scm -B -V
 
 cache:
   directories:
