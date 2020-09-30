@@ -1,9 +1,9 @@
 package de.befrish.testdatamt.benchmark;
 
-import de.befrish.testdatamt.api.dummy.EmptyTestDataSource;
-import de.befrish.testdatamt.api.dummy.IdentityTestDataProcessor;
-import de.befrish.testdatamt.api.dummy.NoOpTestDataSink;
-import de.befrish.testdatamt.api.runner.TestDataMtRunner;
+import de.befrish.testdatamt.stream.api.impl.EmptyDataSource;
+import de.befrish.testdatamt.stream.api.impl.IdentityDataProcessor;
+import de.befrish.testdatamt.stream.api.impl.NoOpDataSink;
+import de.befrish.testdatamt.stream.api.runner.TestDataExecutor;
 import io.vavr.collection.List;
 import org.openjdk.jmh.annotations.Benchmark;
 
@@ -12,21 +12,21 @@ import org.openjdk.jmh.annotations.Benchmark;
  */
 public class TestDataMtRunnerBenchmark extends AbstractBenchmark {
 
-    private TestDataMtRunner testDataMtRunner;
+    private TestDataExecutor testDataExecutor;
 
     @Override
     public void setUpInvocation() {
-        this.testDataMtRunner = new TestDataMtRunner(
-                List.of(new EmptyTestDataSource()),
-                new NoOpTestDataSink()
+        this.testDataExecutor = new TestDataExecutor(
+                List.of(new EmptyDataSource()),
+                List.of(new IdentityDataProcessor()),
+                new NoOpDataSink()
         );
-        this.testDataMtRunner.addProcessor(new IdentityTestDataProcessor());
     }
 
     @Benchmark
     @Override
     public void run() {
-        this.testDataMtRunner.run();
+        this.testDataExecutor.execute();
     }
 
 }

@@ -1,8 +1,14 @@
 # TestDataMT - Test data management tool
 
 ## Scenarios
+
+## Scenario Automated Test
+
 * load test data for test cases before test execution (e.g. JUnit)
 * check state after test execution (e.g. state of a database)
+
+## Scenario Manual Test
+
 * load test data for an application in development
 
 ## Features

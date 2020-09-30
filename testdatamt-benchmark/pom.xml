@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>testdatamt-api</artifactId>
+            <artifactId>testdatamt-stream-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -66,10 +66,25 @@
                 </configuration>
             </plugin>
 
-            <!-- Generierte Klassen von JMH problematisch -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
+                <configuration>
+                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+                </configuration>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.pitest</groupId>-->
+<!--                <artifactId>pitest-maven</artifactId>-->
+<!--                <configuration>-->
+<!--                    <skip>true</skip>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
                 </configuration>

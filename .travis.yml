@@ -6,6 +6,9 @@ os: linux
 dist: focal
 jdk:
   - openjdk11
+cache:
+  directories:
+    - $HOME/.m2
 
 install: mvn clean install -Dmaven.javadoc.skip=true -B -V
 
@@ -19,7 +22,3 @@ after_success:
 # TODO
 # Failed to check out from SCM: The git-clone command failed. Cloning into '/home/travis/build/Befrish/testdatamt/target/scmpublish-checkout'...
 # Permission denied (publickey)
-
-cache:
-  directories:
-    - $HOME/.m2

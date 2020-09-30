@@ -27,7 +27,7 @@
 		</menu>
 		<menu name="Documentation">
 <!--			<item name="Test data model" href="documentation/test-data-model.html" />-->
-<!--			<item name="Test data processing api" href="documentation/test-data-processing-api.html" />--><!-- Source-Processor-Sink architecture -->
+<!--			<item name="Test data stream api" href="documentation/test-data-stream-api.html" />--><!-- Source-Processor-Sink architecture -->
 <!--			<item name="Test data evaluation" href="documentation/test-data-evaluation.html" />-->
 			<item name="JavaDocs" href="apidocs/index.html" />
 		</menu>

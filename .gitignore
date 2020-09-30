@@ -26,20 +26,11 @@ buildNumber.properties
 nb-configuration*.xml
 nbactions*.xml
 
-# Maven Shade Plugin
-dependency-reduced-pom.xml
-
 # Logging files
 *.log
 
 # Logging files
 *.log
-
-# Xtext
-model/
-src-gen/
-xtend-gen/
-plugin.xml_gen
 
 # Vaadin
 package.json
@@ -48,6 +39,6 @@ webpack.config.js
 webpack.generated.js
 node_modules/
 
-#Diffblue
-.diffblue
-
+# Test
+.jqwik-database
+.attach_pid*

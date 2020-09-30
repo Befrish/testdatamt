@@ -2,23 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.befrish.testdatamt</groupId>
         <artifactId>testdatamt</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>testdatamt-collection</artifactId>
+    <artifactId>testdatamt-data-model</artifactId>
     <packaging>jar</packaging>
 
-    <name>TestDataMT - Collection Utilities</name>
-    <description>Specific additional collections e.g. special implementation of set of objects with an unique key </description>
+    <name>TestDataMT - Data model</name>
+    <description>Data model objects for reading, evaluating and processing test data</description>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>testdatamt-util</artifactId>
+            <artifactId>testdatamt-collection</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -28,6 +28,12 @@
         </dependency>
 
         <!-- Test -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>testdatamt-test-util</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -41,17 +47,6 @@
         <dependency>
             <groupId>net.jqwik</groupId>
             <artifactId>jqwik</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.befrish.jqwik</groupId>
-            <artifactId>jqwik-vavr</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>testdatamt-test-util</artifactId>
-            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
