@@ -2,6 +2,8 @@
 # https://docs.travis-ci.com/user/languages/java/
 # https://www.vogella.com/tutorials/TravisCi/article.html
 language: java
+os: linux
+dist: focal
 jdk:
   - openjdk11
 
@@ -18,6 +20,3 @@ after_success:
 cache:
   directories:
     - $HOME/.m2
-
-# see https://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure
-sudo: false
