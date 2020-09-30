@@ -9,13 +9,41 @@
         <version>1.9</version>
     </skin>
 
-	<publishDate position="none"/>
-	<version position="none"/>
-  	
+	<bannerLeft>
+		<name>TestDataMT</name>
+		<href>https://github.com/Befrish/testdatamt</href>
+	</bannerLeft>
+
+	<publishDate position="bottom" format="yyyy-MM-dd"/>
+	<version position="bottom"/>
+
 	<body>
-		<menu ref="parent"/>
+		<menu name="Overview">
+			<item name="Introduction" href="index.html" />
+			<item name="Usage" href="overview/usage.html" />
+			<item name="FAQ" href="faq.html" />
+			<item name="Contribute" href="overview/contribute.html" />
+<!--			<item name="Download" href="overview/download.html" />-->
+		</menu>
+		<menu name="Documentation">
+<!--			<item name="Test data model" href="documentation/test-data-model.html" />-->
+<!--			<item name="Test data processing api" href="documentation/test-data-processing-api.html" />--><!-- Source-Processor-Sink architecture -->
+<!--			<item name="Test data evaluation" href="documentation/test-data-evaluation.html" />-->
+			<item name="JavaDocs" href="apidocs/index.html" />
+		</menu>
+<!--		<menu name="Examples">-->
+<!--			<item name="Getting started" href="examples/getting-started.html" />-->
+<!--			<item name="Database application" href="examples/database.html" />-->
+<!--			<item name="Webservice mock server" href="examples/webservice-mock.html" />-->
+<!--		</menu>-->
+<!--		<menu name="Tools">-->
+<!--			<item name="Visualization" href="tools/visualization.html" />-->
+<!--			<item name="Loading test data set on application startup" href="tools/application-startup.html" />-->
+<!--			<item name="Data schema export" href="tools/data-schema-export.html" />-->
+<!--		</menu>-->
+		<menu ref="parent" inherit="top"/>
+		<menu ref="reports" inherit="top"/>
 		<menu ref="modules"/>
-		<menu ref="reports"/>
 	</body>
 
 </project>

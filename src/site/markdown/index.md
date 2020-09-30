@@ -1,17 +1,8 @@
-[![Build Status](https://travis-ci.com/Befrish/testdatamt.svg?branch=master)](https://travis-ci.com/Befrish/testdatamt)
-[![Coverage Status](https://coveralls.io/repos/github/Befrish/testdatamt/badge.svg?branch=master)](https://coveralls.io/github/Befrish/testdatamt?branch=master)
-[![Documentation](https://img.shields.io/badge/Documentation-dev-darkgray.svg)](https://befrish.github.io/testdatamt)
-
 # TestDataMT - Test data management tool
 
-Tool for managing test data.
-
 ## Scenarios
-
 * load test data for test cases before test execution (e.g. JUnit)
 * check state after test execution (e.g. state of a database)
-
-
 * load test data for an application in development
 
 ## Features

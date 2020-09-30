@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+      title="Frequently Asked Questions"
+      toplink="false">
+
+    <part id="general">
+        <title>General</title>
+
+        <faq id="whats-testdatamt">
+            <question>
+                What is TestDataMT for?
+            </question>
+            <answer>
+                <p>TestDataMT is a tool to managing test data for different kind of tests in order to ensure preconditions and check postconditions.</p>
+<!--                <source>some source code</source>-->
+            </answer>
+        </faq>
+    </part>
+
+</faqs>

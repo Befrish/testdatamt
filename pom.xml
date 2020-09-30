@@ -10,18 +10,15 @@
     </parent>
 
     <groupId>de.befrish.testdatamt</groupId>
-    <artifactId>testdatamt-parent</artifactId>
+    <artifactId>testdatamt</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>TestDataMT - Parent</name>
     <description>Parent pom providing dependency and plugin management</description>
 
-    <url>https://github.com/Befrish/testdatamt/tree/master</url>
-    <organization>
-        <name>Befrish</name>
-        <url>https://github.com/Befrish</url>
-    </organization>
+    <url>https://github.com/Befrish/testdatamt</url>
+    <organization/>
     <developers>
         <developer>
             <name>Benno Müller</name>
@@ -51,11 +48,17 @@
         </site>
     </distributionManagement>
 
-
     <modules>
-        <module>testdatamt</module>
-        <module>testdatamt-tools</module>
-        <module>testdatamt-samples</module>
+        <module>testdatamt-collection</module>
+        <module>testdatamt-util</module>
+
+        <module>testdatamt-domain</module>
+        <module>testdatamt-api</module>
+
+        <module>testdatamt-evaluation</module>
+
+        <module>testdatamt-systemtest</module>
+        <module>testdatamt-benchmark</module>
     </modules>
 
     <properties>
@@ -69,19 +72,23 @@
 
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version><!-- same version like parent -->
 
+        <lombok.version>1.18.12</lombok.version>
+        <vavr.version>0.10.3</vavr.version>
+        <guava.version>29.0-jre</guava.version>
+
+        <!-- Benchmark -->
+        <jmh.version>1.25.2</jmh.version>
+
         <!-- Quality checks -->
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <spotbugs-maven-plugin.version>4.0.4</spotbugs-maven-plugin.version>
         <spotbugs.version>4.0.4</spotbugs.version>
         <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
-        <checkstyle.version>8.36.1</checkstyle.version>
+        <checkstyle.version>8.36.2</checkstyle.version>
         <jqassistant-maven-plugin.version>1.8.0</jqassistant-maven-plugin.version>
 
         <!-- Test -->
         <pitest-maven.version>1.5.2</pitest-maven.version>
-
-        <!-- Benchmark -->
-        <jmh.version>1.25.2</jmh.version>
 
         <!-- Coverage -->
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
@@ -94,7 +101,7 @@
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
         <velocity.version>1.7</velocity.version><!-- for maven-fluido-skin 1.9 -->
         <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
-        <maven-scm-publish-plugin.version>1.1</maven-scm-publish-plugin.version>
+        <maven-scm-publish-plugin.version>3.0.0</maven-scm-publish-plugin.version>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
 
         <!-- avoid JVM startup error Could not find or load main class @{argLine} when using late property evaluation and jacoco-maven-plugin not executed -->
@@ -103,6 +110,22 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vavr</groupId>
+                <artifactId>vavr</artifactId>
+                <version>${vavr.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
             <!-- Benchmark -->
             <dependency>
                 <groupId>org.openjdk.jmh</groupId>
@@ -131,7 +154,6 @@
                     <artifactId>spotbugs-maven-plugin</artifactId>
                     <version>${spotbugs-maven-plugin.version}</version>
                     <dependencies>
-                        <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
                         <dependency>
                             <groupId>com.github.spotbugs</groupId>
                             <artifactId>spotbugs</artifactId>
@@ -162,7 +184,7 @@
                                     <property name="optional" value="true" />
                                 </module>
                                 <module name="TreeWalker">
-                                    <!-- Allgemeine Konventionen -->
+                                    <!-- Generall conventions -->
                                     <module name="OneTopLevelClass" />
                                     <module name="OneStatementPerLine" />
                                     <module name="OuterTypeFilename">
@@ -182,27 +204,6 @@
                         </checkstyleRules>
                     </configuration>
                 </plugin>
-
-<!--                <plugin>-->
-<!--                    <groupId>com.buschmais.jqassistant</groupId>-->
-<!--                    <artifactId>jqassistant-maven-plugin</artifactId>-->
-<!--                    <version>${jqassistant-maven-plugin.version}</version>-->
-<!--                    <configuration>-->
-<!--                        <failOnSeverity>info</failOnSeverity>-->
-<!--                    </configuration>-->
-<!--                    <dependencies>-->
-<!--                        <dependency>-->
-<!--                            <groupId>com.buschmais.jqassistant.plugin</groupId>-->
-<!--                            <artifactId>jpa2</artifactId>-->
-<!--                            <version>${jqassistant-maven-plugin.version}</version>-->
-<!--                        </dependency>-->
-<!--                        <dependency>-->
-<!--                            <groupId>com.buschmais.jqassistant.plugin</groupId>-->
-<!--                            <artifactId>java8</artifactId>-->
-<!--                            <version>${jqassistant-maven-plugin.version}</version>-->
-<!--                        </dependency>-->
-<!--                    </dependencies>-->
-<!--                </plugin>-->
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -251,6 +252,7 @@
 <!--                    </configuration>-->
 <!--                </plugin>-->
 
+                <!-- Code coverage and report -->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
@@ -262,6 +264,7 @@
                     <version>${coveralls-maven-plugin.version}</version>
                 </plugin>
 
+                <!-- Depencendy report -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jdepend-maven-plugin</artifactId>
@@ -273,9 +276,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>${maven-site-plugin.version}</version>
-                    <configuration>
-                        <topSiteURL>${project.distributionManagement.site.url}</topSiteURL>
-                    </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.velocity</groupId>
@@ -286,12 +286,22 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${maven-project-info-reports-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-publish-plugin</artifactId>
                     <version>${maven-scm-publish-plugin.version}</version>
                     <configuration>
                         <scmBranch>gh-pages</scmBranch>
-                        <tryUpdate>true</tryUpdate><!-- Improving SCM Checkout Performance -->
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -341,7 +351,6 @@
             </activation>
             <build>
                 <plugins>
-                    <!-- Sorgt dafür, dass unsere (transitiven) Dependencies sauber sind. -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
@@ -366,11 +375,11 @@
 
                                         <reactorModuleConvergence>
                                             <ignoreModuleDependencies>true</ignoreModuleDependencies>
-                                            <message>Der Parent und alle Module müssen die selbe Version haben und Module aus dem Reaktor müssen mit Reaktor-Vesrion referenziert werden.</message>
+                                            <message>The parent module and all submodules must have the same version and modules of the reactor must be referenced with reactor version.</message>
                                         </reactorModuleConvergence>
 
                                         <requireSameVersions>
-                                            <message>Maven Surefire und Failsafe verwenden die selbe Basis und sollten daher immer die gleiche Version haben</message>
+                                            <message>Maven Surefire and Failsafe use same base. So they should use same version.</message>
                                             <plugins>
                                                 <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
                                                 <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
@@ -381,18 +390,10 @@
                                         <bannedDependencies>
                                             <excludes>
                                                 <exclude>commons-logging:commons-logging</exclude><!-- SLF4J JCL bridge instead -->
-                                                <exclude>net.jcip:jcip-annotations</exclude>
-                                                <exclude>com.sun.mail:javax.mail</exclude>
-                                                <exclude>javax.mail:javax.mail-api</exclude>
-                                                <exclude>com.google.guava:*:[28.2-android]</exclude>
                                             </excludes>
                                             <message>Einige Abhängigkeiten sollen in unseren Saxess Projekten nicht verwendet werden:
 
-                                                - Nicht commons-logging verwenden! Bitte aus Depenecies excludieren, stattdessen verwenden wir slf4j-jcl-bridge.
-                                                - Nicht net.jcip:jcip-annotations verwenden! Wir verwenden stattdessen com.github.stephenc.jcip:jcip-annotations aus lizenzrechtlichen Gründen, siehe #24114
-                                                - Nicht com.sun.mail:javax.mail verwenden! Wir verwenden com.sun.mail:jakarta.mail (Mail Implementierung). Siehe  #20963
-                                                - Nicht javax.mail:javax.mail-api verwenden! Wir verwenden jakarta.mail:jakarta.mail-api (Mail API). Siehe #20963
-                                                - Nicht Google Guava -android Versionen: Diese sind für Java 7 und haben einige Java 8 spezifische Methoden nicht. Dies kann zu Inkompatibilitäten führen auch wenn unsere Third-Party Dependencies Google Guava einsetzen.
+                                                - Do not use commons-logging! Use slf4j-jcl-bridge instead.
                                             </message>
                                         </bannedDependencies>
                                     </rules>
@@ -552,7 +553,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven-project-info-reports-plugin.version}</version>
                 <configuration>
                     <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                 </configuration>
@@ -579,38 +579,27 @@
                 </reportSets>
             </plugin>
 
-            <!-- Überblick über verfügbare Updates verwendeter Bibliotheken und Plugins -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
-                <inherited>false</inherited><!-- nur für dieses Projekt, nicht vererben -->
+                <inherited>false</inherited><!-- only for parent project -->
                 <reportSets>
                     <reportSet>
                         <reports>
 <!--                            <report>dependency-updates-report</report>-->
-                            <report>plugin-updates-report</report>
+<!--                            <report>plugin-updates-report</report>-->
                             <report>property-updates-report</report>
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>checkstyle</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
 
             <plugin>
