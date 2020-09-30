@@ -14,8 +14,11 @@ after_success:
   # Deploy Maven Site to GitHub (https://befrish.github.io/testdatamt)
   # http://maven.apache.org/plugins/maven-scm-publish-plugin/various-tips.html
   # https://blog.soebes.de/blog/2015/06/12/making-github-page-for-mojohaus/
-  - mvn site site:stage -B
-  - mvn scm-publish:publish-scm -B
+#  - mvn site site:stage -B
+#  - mvn scm-publish:publish-scm -B
+# TODO
+# Failed to check out from SCM: The git-clone command failed. Cloning into '/home/travis/build/Befrish/testdatamt/target/scmpublish-checkout'...
+# Permission denied (publickey)
 
 cache:
   directories:
