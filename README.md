@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/Befrish/testdatamt.svg?branch=master)](https://travis-ci.com/Befrish/testdatamt)
 [![Coverage Status](https://coveralls.io/repos/github/Befrish/testdatamt/badge.svg?branch=master)](https://coveralls.io/github/Befrish/testdatamt?branch=master)
-[![Documentation](https://img.shields.io/badge/Documentation-dev-darkgray.svg)](https://befrish.github.io/testdatamt)
+[![Maven Site](https://img.shields.io/badge/documentation-dev-darkgray.svg)](https://befrish.github.io/testdatamt)
 
 # TestDataMT - Test data management tool
 
