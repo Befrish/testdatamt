@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"de.befrish.testdatamt.collection.id"},{"l":"de.befrish.testdatamt.collection.id.map"}]

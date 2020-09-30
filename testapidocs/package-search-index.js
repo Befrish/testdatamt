@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"de.befrish.testdatamt.api"},{"l":"de.befrish.testdatamt.api.dummy"},{"l":"de.befrish.testdatamt.benchmark"},{"l":"de.befrish.testdatamt.collection.id"},{"l":"de.befrish.testdatamt.collection.id.map"},{"l":"de.befrish.testdatamt.collection.id.util"},{"l":"de.befrish.testdatamt.util"}]
