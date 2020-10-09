@@ -2,6 +2,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/Befrish/testdatamt/badge.svg?branch=master)](https://coveralls.io/github/Befrish/testdatamt?branch=master)
 [![Maven Site](https://img.shields.io/badge/documentation-dev-darkgray.svg)](https://befrish.github.io/testdatamt)
 
+<img src="testdatamt_logo.png" height="256" align="right">
+
 # TestDataMT - Test data management tool
 
 Tool for managing test data.
