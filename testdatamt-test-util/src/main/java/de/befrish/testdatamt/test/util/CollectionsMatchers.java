@@ -21,14 +21,14 @@ public final class CollectionsMatchers {
 
     public static <E> Matcher<Iterable<? extends E>> containsInOrder(final Iterable<E> items) {
         return items.iterator().hasNext()
-                ? logActual(Matchers.contains(List.ofAll(items).map(Matchers::equalTo).toJavaArray(Matcher[]::new)))
-                : Matchers.emptyIterable();
+                ? logActual(contains(List.ofAll(items).map(Matchers::equalTo).toJavaArray(Matcher[]::new)))
+                : emptyIterable();
     }
 
     public static <E> Matcher<Iterable<? extends E>> containsInOrderWith(final Iterable<Matcher<E>> itemMatchers) {
         return itemMatchers.iterator().hasNext()
-                ? logActual(Matchers.contains(List.ofAll(itemMatchers).toJavaArray(Matcher[]::new)))
-                : Matchers.emptyIterable();
+                ? logActual(contains(List.ofAll(itemMatchers).toJavaArray(Matcher[]::new)))
+                : emptyIterable();
     }
 
     public static <E> Matcher<Iterable<E>> hasItems(final Iterable<E> items) {

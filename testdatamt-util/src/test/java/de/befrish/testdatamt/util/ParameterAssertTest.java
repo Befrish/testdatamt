@@ -1,13 +1,15 @@
 package de.befrish.testdatamt.util;
 
-import org.hamcrest.MatcherAssert;
-import org.junit.Test;
+import io.vavr.collection.Traversable;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Benno Müller
@@ -25,8 +27,8 @@ public class ParameterAssertTest {
         final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> ParameterAssert.notNull(null, "parameter42"));
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be null"));
+        assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be null"));
     }
 
     @Test
@@ -40,8 +42,8 @@ public class ParameterAssertTest {
         final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> ParameterAssert.notBlank(null, "parameter42"));
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be null"));
+        assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be null"));
     }
 
     @Test
@@ -49,8 +51,8 @@ public class ParameterAssertTest {
         final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> ParameterAssert.notBlank("", "parameter42"));
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be blank"));
+        assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be blank"));
     }
 
     @Test
@@ -58,8 +60,8 @@ public class ParameterAssertTest {
         final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> ParameterAssert.notBlank(" \t\r\n", "parameter42"));
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be blank"));
+        assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be blank"));
     }
 
     @Test
@@ -73,8 +75,17 @@ public class ParameterAssertTest {
         final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> ParameterAssert.notEmpty(Collections.emptyList(), "parameter42"));
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be empty"));
+        assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be empty"));
+    }
+
+    @Test
+    public void notEmpty_nullJavaCollection() {
+        final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                () -> ParameterAssert.notEmpty((Collection<?>) null, "parameter42"));
+
+        assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be null"));
     }
 
     @Test
@@ -88,8 +99,17 @@ public class ParameterAssertTest {
         final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> ParameterAssert.notEmpty(io.vavr.collection.List.empty(), "parameter42"));
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be empty"));
+        assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be empty"));
+    }
+
+    @Test
+    public void notEmpty_nullTraversable() {
+        final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                () -> ParameterAssert.notEmpty((Traversable<?>) null, "parameter42"));
+
+        assertThat(illegalArgumentException.getMessage(), containsString("parameter42"));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be null"));
     }
 
 }

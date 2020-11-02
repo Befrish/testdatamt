@@ -5,8 +5,8 @@
 
 package de.befrish.testdatamt.benchmark;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Benno Müller
@@ -17,7 +17,7 @@ public abstract class AbstractBenchmarkTest {
 
     protected abstract AbstractBenchmark createBenchmark();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         this.benchmark = createBenchmark();
 

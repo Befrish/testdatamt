@@ -1,10 +1,11 @@
 package de.befrish.testdatamt.test.util;
 
 import org.hamcrest.MatcherAssert;
-import org.junit.function.ThrowingRunnable;
+import org.junit.jupiter.api.function.Executable;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @see de.befrish.testdatamt.util.ParameterAssert
@@ -17,25 +18,25 @@ public final class ParameterAssertions {
         super();
     }
 
-    public static final void assertThrowsParameterNullException(final String parameterName, final ThrowingRunnable runnable) {
-        final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, runnable);
+    public static final void assertThrowsParameterNullException(final String parameterName, final Executable executable) {
+        final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, executable);
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString(parameterName));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be null"));
+        assertThat(illegalArgumentException.getMessage(), containsString(parameterName));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be null"));
     }
 
-    public static final void assertThrowsParameterBlankException(final String parameterName, final ThrowingRunnable runnable) {
-        final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, runnable);
+    public static final void assertThrowsParameterBlankException(final String parameterName, final Executable executable) {
+        final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, executable);
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString(parameterName));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be blank"));
+        assertThat(illegalArgumentException.getMessage(), containsString(parameterName));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be blank"));
     }
 
-    public static final void assertThrowsParameterEmptyException(final String parameterName, final ThrowingRunnable runnable) {
-        final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, runnable);
+    public static final void assertThrowsParameterEmptyException(final String parameterName, final Executable executable) {
+        final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, executable);
 
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString(parameterName));
-        MatcherAssert.assertThat(illegalArgumentException.getMessage(), containsString("must not be empty"));
+        assertThat(illegalArgumentException.getMessage(), containsString(parameterName));
+        assertThat(illegalArgumentException.getMessage(), containsString("must not be empty"));
     }
 
 }

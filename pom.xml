@@ -102,7 +102,8 @@
         <jqassistant-maven-plugin.version>1.8.0</jqassistant-maven-plugin.version>
 
         <!-- Test -->
-        <pitest-maven.version>1.5.2</pitest-maven.version>
+        <pitest-maven.version>1.4.11</pitest-maven.version><!-- same used in pitest-junit5-plugin -->
+        <pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
 
         <!-- Coverage -->
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
@@ -260,30 +261,41 @@
                     </configuration>
                 </plugin>
 
-<!--                <plugin>-->
-<!--                    <groupId>org.pitest</groupId>-->
-<!--                    <artifactId>pitest-maven</artifactId>-->
-<!--                    <version>${pitest-maven.version}</version>-->
-<!--                    <configuration>-->
-<!--                        <threads>2</threads>-->
-<!--                        <outputFormats>-->
-<!--                            <format>XML</format>-->
-<!--                            <format>HTML</format>-->
-<!--                        </outputFormats>-->
-<!--                        <targetClasses>-->
-<!--                            <param>ag.saxess.*</param>-->
-<!--                        </targetClasses>-->
-<!--                        <targetTests>-->
-<!--                            <param>ag.saxess.*</param>-->
-<!--                        </targetTests>-->
-<!--                        <excludedClasses>-->
-<!--                            <param>**IntegrationTest</param>-->
-<!--                            <param>**SystemTest</param>-->
-<!--                        </excludedClasses>-->
-<!--                        <failWhenNoMutations>false</failWhenNoMutations>-->
-<!--                        <timestampedReports>false</timestampedReports>-->
-<!--                    </configuration>-->
-<!--                </plugin>-->
+                <plugin>
+                    <groupId>org.pitest</groupId>
+                    <artifactId>pitest-maven</artifactId>
+                    <version>${pitest-maven.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.pitest</groupId>
+                            <artifactId>pitest-junit5-plugin</artifactId>
+                            <version>${pitest-junit5-plugin.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <threads>2</threads>
+                        <outputFormats>
+                            <format>XML</format>
+                            <format>HTML</format>
+                        </outputFormats>
+                        <targetClasses>
+                            <param>de.befrish.testdatamt.*</param>
+                        </targetClasses>
+                        <targetTests>
+                            <param>de.befrish.testdatamt.*</param>
+                        </targetTests>
+                        <excludedClasses>
+                            <param>**IntegrationTest</param>
+                            <param>**SystemTest</param>
+                        </excludedClasses>
+                        <failWhenNoMutations>false</failWhenNoMutations>
+                        <timestampedReports>false</timestampedReports>
+                        <!-- https://pitest.org/quickstart/mutators/ -->
+<!--                        <mutators>-->
+<!--                            <mutator>STRONGER</mutator>-->
+<!--                        </mutators>-->
+                    </configuration>
+                </plugin>
 
                 <!-- Code coverage and report -->
                 <plugin>
@@ -507,19 +519,19 @@
                         </executions>
                     </plugin>
 
-<!--                    <plugin>-->
-<!--                        <groupId>org.pitest</groupId>-->
-<!--                        <artifactId>pitest-maven</artifactId>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>pi-test</id>-->
-<!--                                <phase>integration-test</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>mutationCoverage</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pi-test</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -536,7 +548,7 @@
                 <plugins>
                     <plugin>
                         <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <artifactId>co-mavenjaco-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>
@@ -647,6 +659,18 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jdepend-maven-plugin</artifactId>
             </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.pitest</groupId>-->
+<!--                <artifactId>pitest-maven</artifactId>-->
+<!--                <reportSets>-->
+<!--                    <reportSet>-->
+<!--                        <reports>-->
+<!--                            <report>report</report>-->
+<!--                        </reports>-->
+<!--                    </reportSet>-->
+<!--                </reportSets>-->
+<!--            </plugin>-->
         </plugins>
     </reporting>
 
